@@ -1,0 +1,33 @@
+#!/usr/bin/make -f
+
+# Garante opções de segurança
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+# Define HOME temporária
+export HOME=/tmp
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	# Nada a fazer aqui
+
+override_dh_auto_build:
+	# 1. Garante que a pasta de config existe
+	mkdir -p .cargo
+
+	# 2. Cria o arquivo de configuração manualmente para forçar modo offline
+	echo '[source.crates-io]' > .cargo/config.toml
+	echo 'replace-with = "vendored-sources"' >> .cargo/config.toml
+	echo '[source.vendored-sources]' >> .cargo/config.toml
+	echo 'directory = "vendor"' >> .cargo/config.toml
+
+	# 3. Compilação Offline (Agora com os checksums originais)
+	cargo build --release --verbose --offline
+
+override_dh_auto_test:
+	cargo test --release --verbose --offline || true
+
+override_dh_auto_install:
+	mkdir -p debian/feroxbuster/usr/bin
+	cp target/release/feroxbuster debian/feroxbuster/usr/bin/

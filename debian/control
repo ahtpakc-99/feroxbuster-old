@@ -1,0 +1,23 @@
+Source: feroxbuster
+Section: net
+Priority: optional
+Maintainer: Leonardo Tito (антракс_99) <leotito201@outlook.com>
+Build-Depends: debhelper-compat (= 13),
+               rustc,
+               cargo,
+               pkg-config,
+               libssl-dev
+Standards-Version: 4.6.2
+Homepage: https://github.com/epi052/feroxbuster
+Vcs-Browser: https://github.com/epi052/feroxbuster
+Vcs-Git: https://github.com/epi052/feroxbuster.git
+
+Package: feroxbuster
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Fast, simple, recursive content discovery tool written in Rust
+ Feroxbuster is a tool designed to perform forced browsing.
+ It uses wordlists to search for unlinked content in target directories.
+ These resources may store sensitive information about web applications
+ and operational systems, such as source code, credentials, internal
+ network addressing, etc.
