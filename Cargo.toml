@@ -68,7 +68,7 @@ self_update = { version = "0.40", features = [
 
 [dev-dependencies]
 tempfile = "3.20"
-httpmock = "0.7"
+httpmock = "0.9"
 assert_cmd = "2.0"
 predicates = "3.1"
 
